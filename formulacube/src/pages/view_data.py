@@ -11,4 +11,7 @@ st.title("Render Data")
 if 'dataframes' in st.session_state:
     df_name = st.selectbox("Select dataframe to view", st.session_state['dataframes'].keys())
     if df_name:
-        st.dataframe(st.session_state['dataframes'][df_name])
+        df = st.session_state['dataframes'][df_name]
+        # # timedelta_columns = df.select_dtypes(include=['timedelta64[ns]']).columns
+        # # df[timedelta_columns] = df[timedelta_columns].astype(str)
+        # st.dataframe(df)
