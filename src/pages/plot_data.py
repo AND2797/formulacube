@@ -7,7 +7,6 @@ import plotly.graph_objects as go
 st.set_page_config(page_title="Plot data", layout="centered")
 
 available_df = duckdb.sql("SHOW TABLES;").to_df()
-# selected_df = st.selectbox("Select datasource", available_df['name'].unique())
 options = st.multiselect(
     "Columns",
     available_df
@@ -19,7 +18,6 @@ for table in options:
     columns = [f"{table}.{column_name}" for column_name in columns]
     available_columns.extend(columns)
 
-# df = duckdb.sql(f"SELECT * FROM {selected_df}").to_df()
 x_axis = st.multiselect(
     "x_axis",
     available_columns
@@ -30,7 +28,6 @@ y_axis = st.multiselect(
     available_columns
 )
 if x_axis and y_axis:
-    # fig = px.line(df, x=df[x_axis].T.to_numpy()[0], y=df[y_axis].T.to_numpy()[0], title="test")
     #TODO: improve this plotting logic
     table, x_dimension = x_axis[0].split(".")
     x_df = duckdb.query(f"SELECT {x_dimension} from {table}").to_df()
