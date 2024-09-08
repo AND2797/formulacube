@@ -3,7 +3,7 @@ import fastf1
 import pandas as pd
 import duckdb
 
-st.title("Race Data Input")
+st.title("Load Session")
 year = int(st.number_input("Year"))
 race = st.text_input("Race")
 race_session = st.text_input("Session")
