@@ -4,7 +4,7 @@ import plotly.figure_factory as ff
 import plotly.express as px
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Plot data", layout="centered")
+st.set_page_config(page_title="Speed Trace Analysis", layout="centered")
 
 available_df = duckdb.sql("SHOW TABLES;").to_df()
 options = st.multiselect(
@@ -39,4 +39,6 @@ if x_axis and y_axis:
         fig.add_trace(go.Scatter(x=x_df, y=y_df, name=y_tab))
 
     fig.update_traces(hoverinfo='text', mode='lines')
+    fig.update_xaxes(showgrid=True)
+    fig.update_yaxes(showgrid=True)
     st.plotly_chart(fig, use_container_width=True)

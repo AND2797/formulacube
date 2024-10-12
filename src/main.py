@@ -19,4 +19,11 @@ if st.button("Load"):
     data_token = f"{race}_{year}_{race_session}_Session"
     start_time = session.event['Session5Date']
     st.session_state['dataframes'][data_token] = session
+    laps_data = session.laps
+    tdelta_cols = list(laps_data.select_dtypes(include='timedelta64[ns]').columns)
+    for col in tdelta_cols:
+        #TODO: LapTime is fucked up. Cannot add starting time to LapTime.
+        laps_data[col] = start_time + laps_data[col]
+
+    duckdb.sql(f"CREATE TABLE {data_token}_laps AS SELECT * FROM laps_data")
 
